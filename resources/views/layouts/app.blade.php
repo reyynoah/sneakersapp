@@ -14,31 +14,38 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto"> @auth
-        <li class="nav-item">
-            <a href="{{ route('shoes.index') }}" class="nav-link">Shoes</a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('categories.index') }}" class="nav-link">Categories</a>
-        </li>
-        <li class="nav-item ms-3">
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-sm btn-danger nav-link text-white px-3">Logout</button>
-            </form>
-        </li>
-    @else
-        <li class="nav-item">
-            <a href="{{ route('login') }}" class="nav-link">Login</a>
-        </li>
-    @endauth
-</ul>
+            <ul class="navbar-nav ms-auto"> 
+                
+                <li class="nav-item">
+                    <a href="{{ route('cart.index') }}" class="nav-link">Cart 🛒</a>
+                </li>
+                @auth
+                    <li class="nav-item">
+                        <a href="{{ route('shoes.index') }}" class="nav-link">Shoes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('categories.index') }}" class="nav-link">Categories</a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-sm btn-danger nav-link text-white px-3">Logout</button>
+                        </form>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a href="{{ route('login') }}" class="nav-link">Login</a>
+                    </li>
+                @endauth
+            </ul>
         </div>
     </div>
 </nav>
+
 <div class="container">
     @yield('content')
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 </html>

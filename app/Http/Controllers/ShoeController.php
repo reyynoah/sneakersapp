@@ -105,4 +105,28 @@ class ShoeController extends Controller
             return redirect()->route('shoes.index')->with('error', 'Failed to delete shoe. Please try again.');
         }
     }
+    // --- FITUR DARI GIST (PUBLIC & SEARCH) ---
+
+    public function welcome(Request $request)
+    {
+        try {
+            $search = $request->input('search');
+            
+            // Ganti 'title' jadi 'name' sesuai tabel shoes
+            $shoes = Shoe::when($search, function ($query, $search) {
+                return $query->where('name', 'like', "%{$search}%");
+            })->get();
+
+            return view('welcome', compact('shoes', 'search'));
+        } catch (\Exception $e) {
+            Log::error('Failed to load welcome page: ' . $e->getMessage());
+            return redirect()->route('shoes.index')->with('error', 'Failed to load shoes. Please try again.');
+        }
+    }
+
+    public function showUser($id)
+    {
+        $shoe = Shoe::with('category')->findOrFail($id);
+        return view('shoes.showuser', compact('shoe'));
+    }
 }
