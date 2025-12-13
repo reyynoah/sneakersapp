@@ -1,16 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoryController; 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ShoeController;
-
+use App\Http\Controllers\AuthController;
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login'); 
 });
 
-// categories
-Route::resource('categories', CategoryController::class);
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// shoes
-Route::resource('shoes', ShoeController::class);
-
+Route::middleware('auth')->group(function () {
+    Route::resource('categories', CategoryController::class);
+    Route::resource('shoes', ShoeController::class);
+});
