@@ -1,11 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoryController; // <--- 1. Tambahkan baris ini di paling atas
+use App\Http\Controllers\CategoryController; 
+use App\Http\Controllers\ShoeController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// 2. Tambahkan baris ini di paling bawah
+// categories
 Route::resource('categories', CategoryController::class);
+
+// shoes
+Route::resource('shoes', ShoeController::class);
+

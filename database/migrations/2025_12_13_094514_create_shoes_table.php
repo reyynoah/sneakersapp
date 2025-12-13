@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('shoes', function (Blueprint $table) {
             $table->id();
+            $table->string('name'); 
+            $table->decimal('price', 15, 2); 
+            $table->integer('stock');
+            $table->text('description')->nullable();
+            $table->string('cover')->nullable();
+            $table->foreignId('category_id')->constrained()->onDelete('cascade'); 
             $table->timestamps();
         });
     }
