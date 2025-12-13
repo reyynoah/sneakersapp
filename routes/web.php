@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ShoeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () {
     return redirect()->route('login'); 
@@ -28,4 +29,12 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('shoes', ShoeController::class);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::resource('shoes', ShoeController::class);
+    Route::resource('categories', CategoryController::class);
+    
+    // Route buat Admin lihat Transaksi
+    Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
 });

@@ -15,10 +15,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto"> 
-                
                 <li class="nav-item">
-                    <a href="{{ route('cart.index') }}" class="nav-link">Cart 🛒</a>
-                </li>
+    <a href="{{ route('transactions.index') }}" class="nav-link">Transactions</a>
+</li>
                 @auth
                     <li class="nav-item">
                         <a href="{{ route('shoes.index') }}" class="nav-link">Shoes</a>
