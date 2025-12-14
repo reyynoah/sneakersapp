@@ -1,46 +1,56 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container my-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4>Riwayat Transaksi</h4>
-        <span class="badge bg-primary">Total: {{ $transactions->count() }} Transaksi</span>
-    </div>
-
-    <div class="card shadow-sm">
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Transactions List</h1>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Incoming Orders
+        </div>
         <div class="card-body">
-            <table class="table table-bordered table-hover">
-                <thead class="table-light">
+            <table class="table table-bordered table-striped">
+                <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Tanggal</th>
-                        <th>Pembeli</th>
-                        <th>Sepatu</th>
-                        <th>Qty</th>
-                        <th>Total Harga</th>
+                        <th>ID</th>
+                        <th>Customer Name</th>
+                        <th>Phone / WA</th>
+                        <th>Address</th>
+                        <th>Total Price</th>
                         <th>Status</th>
+                        <th>Date</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($transactions as $transaction)
+                    @foreach($transactions as $transaction)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $transaction->created_at->format('d M Y, H:i') }}</td>
-                        <td>{{ $transaction->user->name ?? 'Guest' }}</td>
+                        <td>#{{ $transaction->id }}</td>
+                        
                         <td>
-                            <strong>{{ $transaction->shoe->name }}</strong>
+                            <span class="fw-bold">{{ $transaction->customer_name }}</span>
+                            @if($transaction->customer_email)
+                                <br><small class="text-muted">{{ $transaction->customer_email }}</small>
+                            @endif
                         </td>
-                        <td>{{ $transaction->quantity }}</td>
+                        
+                        <td>{{ $transaction->customer_phone }}</td>
+                        
+                        <td>{{ $transaction->customer_address }}</td>
+                        
                         <td>Rp {{ number_format($transaction->total_price, 0, ',', '.') }}</td>
+                        
                         <td>
-                            <span class="badge bg-success">{{ strtoupper($transaction->status) }}</span>
+                            @if($transaction->status == 'paid')
+                                <span class="badge bg-success">Paid</span>
+                            @else
+                                <span class="badge bg-warning text-dark">{{ $transaction->status }}</span>
+                            @endif
                         </td>
+                        
+                        <td>{{ $transaction->created_at->format('d M Y H:i') }}</td>
                     </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7" class="text-center text-muted">Belum ada transaksi masuk.</td>
-                    </tr>
-                    @endforelse
+                    @endforeach
                 </tbody>
             </table>
         </div>

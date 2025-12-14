@@ -6,13 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
-    protected $fillable = ['user_id', 'shoe_id', 'quantity', 'total_price', 'status'];
-
-    public function user() {
-        return $this->belongsTo(User::class);
-    }
-
-    public function shoe() {
-        return $this->belongsTo(Shoe::class);
-    }
+    protected $fillable = [
+        'customer_name', 
+        'customer_email', 
+        'customer_phone', 
+        'customer_address', 
+        'total_price', 
+        'status'
+    ];
 }

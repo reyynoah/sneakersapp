@@ -9,8 +9,9 @@ class Cart extends Model
 {
     protected $fillable = [
         'user_id',
-        'shoe_id', // Ganti book_id jadi shoe_id
+        'shoe_id', 
         'quantity',
+        'size',
     ];
 
     public function user()
@@ -18,7 +19,7 @@ class Cart extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function shoe() // Ganti book() jadi shoe()
+    public function shoe() 
     {
         return $this->belongsTo(Shoe::class);
     }

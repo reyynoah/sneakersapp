@@ -7,11 +7,10 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    // Menampilkan halaman list transaksi untuk Admin
     public function index()
     {
-        // Ambil data transaksi terbaru, beserta data user dan sepatunya
-        $transactions = Transaction::with(['user', 'shoe'])->latest()->get();
+        $transactions = Transaction::orderBy('created_at', 'desc')->get();
         return view('transactions.index', compact('transactions'));
     }
+
 }
